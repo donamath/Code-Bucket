@@ -1,0 +1,179 @@
+#include<stdio.h>
+#include<malloc.h>
+
+typedef struct node1
+{
+   int data;
+   struct node1*lchild,*rchild;
+}node;
+
+node *s[100],*t[100];
+void buildtree(struct node1*,int);
+void inorder(struct node1*);
+void preorder(struct node1*);
+void push(struct node1*[],int data);
+void pop(struct node1*[]);
+void postorder(struct node1*);
+int i=1;
+int stop=0,ttop=0;
+
+void buildtree(struct node1*ptr,int data)
+{
+  char opt;
+  int key,newl,newr;
+  node*lc,*rc;
+  if(ptr!=NULL)
+  {
+      ptr->data=data;
+      key=ptr->data;
+      printf("\nIs there a left child for %d ?....[y/n]: ",key);
+      scanf(" %c",&opt);
+      if((opt=='y')||(opt=='Y'))
+      {
+          lc=(node*)malloc(sizeof(node));
+          lc->data=0;
+          lc->lchild=NULL;
+          lc->rchild=NULL;
+          printf("\nEnter its value: ");
+          scanf("%d",&newl);
+          ptr->lchild=lc;
+          i=2*i;
+          buildtree(lc,newl);
+      }
+     else
+         buildtree(NULL,0);
+     printf("\nIs there a right child for %d ?.....[y/n]: ",key);
+     scanf(" %c",&opt);
+     if((opt=='y')||(opt=='Y'))
+      {
+
+          rc=(node*)malloc(sizeof(node));
+          rc->data=0;
+          rc->lchild=NULL;
+          rc->rchild=NULL;
+          printf("\nEnter its value: ");
+          scanf("%d",&newr);
+          ptr->rchild=rc;
+          i=(2*i)+1;
+          buildtree(rc,newr);
+      }
+     else
+        buildtree(NULL,0);
+  }
+}
+
+void main()
+{
+   int opt,op,item;
+   node*root;
+   root=(node*)malloc(sizeof(node));
+   root->data=0;
+   root->lchild=NULL;
+   root->rchild=NULL;
+   printf("\nEnter the value of root node: ");
+   scanf("%d",&item);
+   buildtree(root,item);
+  do
+   {
+     printf("\n1.Inorder Traveral\n2.Preorder Traversal\n3.Postorder Traversal ");
+     printf("\nEnter your choice: ");
+     scanf("%d",&opt);
+     switch(opt)
+      {
+           case 1:
+              printf("\nThe inorder traversal of the binary tree is: ");
+              inorder(root);
+              break;
+           case 2:
+              printf("\nThe preorder traversal of the binary tree is: ");
+              preorder(root);
+              break;
+           case 3:
+              printf("\nThe postorder traversal of the binary tree is: ");
+              postorder(root);
+              break;  
+           default:
+              printf("\nEnter a valid option: ");
+     }
+    printf("\nDo you want to continue?....( yes-1 /no-0 : ");
+    scanf("%d",&op);
+  }while(op==1);
+}
+
+void preorder(struct node1*root)
+{
+        node *ptr,*item;
+        ptr=root;
+        while((ptr!=NULL)||(stop>0))
+        {
+                while(ptr!=NULL)
+                {
+                        printf("%d  ",ptr->data);
+                        stop=stop+1;
+                        s[stop]=ptr;
+                        ptr=ptr->lchild;
+                }
+                if(stop>0)
+                {
+                        item=s[stop];
+                        stop=stop-1;
+                        ptr=item->rchild;
+                }
+        }
+}
+
+void inorder(struct node1*root)
+{
+   node *ptr,*item;
+   ptr=root;
+   while((ptr!=NULL)||(stop>0))
+   {
+        while(ptr!=NULL)
+        {
+             stop=stop+1;
+             s[stop]=ptr;
+             ptr=ptr->lchild;
+        }
+             if(stop>0)
+             {
+                item=s[stop];
+                stop=stop-1;
+                printf("%d  ",item->data);
+                ptr=item->rchild;
+             }
+   }
+}
+
+void postorder(struct node1*root)
+{
+   node *item,*ptr;
+   ptr=root;
+   stop=stop+1;
+   s[stop]=ptr;
+   while(stop>0)
+    {
+         ptr=s[stop];
+         stop=stop-1;
+
+          ttop=ttop+1;
+         t[ttop]=ptr;
+         if((ptr->lchild)!=NULL)
+           {
+             stop=stop+1;
+                 s[stop]=ptr->lchild;
+           }
+         if((ptr->rchild)!=NULL)
+           {
+                 stop=stop+1;
+                 s[stop]=ptr->rchild;
+           }
+     }
+     while(ttop>0)
+        {
+                ptr=t[ttop];
+                ttop=ttop-1;
+                printf("%d  ",ptr->data);
+        }
+}
+
+
