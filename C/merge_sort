@@ -1,0 +1,72 @@
+#include<stdio.h>
+void merge(int a[],int b[],int i,int m,int n)
+{int j,k;
+j=m+1;
+k=i;
+while((i<=m)&&(j<=n))
+{
+if(a[i]<a[j])
+{b[k]=a[i];
+i=i+1;}
+else
+{b[k]=a[j];
+j=j+1;}
+k=k+1;
+}
+while(i<=m)
+{
+b[k]=a[i];
+i=i+1;
+k=k+1;}
+while(j<=n)
+{
+b[k]=a[j];
+j=j+1;
+k=k+1;
+}
+}
+void mergepass(int a[],int b[],int n,int s)
+{
+int j,i;
+i=1;
+while(i<(n-2*s+1))
+{
+merge(a,b,i,i+s-1,i+2*s-1);
+i=i+2*s;
+}
+if((i+s-1)<n)
+{
+merge(a,b,i,i+s-1,n);
+}
+j=i;
+while(j<=n)
+{
+b[j]=a[j];
+j++;
+}
+
+}
+void mergesort(int a[],int n)
+{
+int s=1,b[10];
+while(s<n)
+{
+mergepass(a,b,n,s);
+s=2*s;
+mergepass(b,a,n,s);
+s=2*s;
+}
+}
+void main()
+{
+int n,i,a[10];
+printf("ENTER n");scanf("%d",&n);
+for(i=1;i<=n;i++)
+{printf("ENTER DATA");scanf("%d",&a[i]);}
+mergesort(a,n);
+printf("SORTED ARRAY ");
+for(i=1;i<=n;i++)
+{printf("%d ",a[i]);}
+printf("\n");
+}
+
