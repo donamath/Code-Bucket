@@ -8,6 +8,8 @@ Contribute the simple crazy code snippets that you code.You can add codes of any
 
 -Add your code in the respective folder and name as 'name_of_major_concept_in_the_code'.eg: 'if_else.txt'
 
+-It is nice if you can add simple explanations of major concepts used in your code.
+
 -Commit the changes. Give the message as 'Add name_of_file'. For Example: 'Add if_else'
 
 -Submit the PR!
