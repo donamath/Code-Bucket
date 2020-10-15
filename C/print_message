@@ -1,0 +1,9 @@
+void main()
+{
+  printf("PRINT A MESSAGE \n");
+  printf("Code-Bucket is here \n");
+}
+
+//output
+PRINT A MESSAGE
+Code-Bucket is  here
