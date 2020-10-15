@@ -1,0 +1,16 @@
+//The first technique used Console.WriteLine() to print an entire message to the output console. 
+//At the end of the line, it added a line feed similar to how you might use the Enter or Return key on your keyboard to create a new line of text.
+
+//The second technique used Console.Write() to print to the output console, but at the end, it doesn't add a line feed. 
+//So, the next call to Console.Write() prints an additional message to the same line.
+
+Console.WriteLine("Welcome to Github");
+Console.Write("Let's explore");
+Console.Write("the ");
+Console.WriteLine("world!");
+Console.Write("Code-bucket is here...");
+
+//output
+Welcome to Github
+Let's explorethe world!
+Code-bucket is here...
