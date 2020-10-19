@@ -1,0 +1,68 @@
+//Implement dining philosopher's problem
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+
+#define N 5
+#define HUNGRY 3 
+
+//check whether left or right philospher is present in Eat array
+bool found(int A[],int x,int rear)
+{
+    int i=0,f=0;
+    for(i=0;i<=rear;i++)
+    {
+        if(A[i]==x)
+        {
+            f=1;
+            break;
+        }
+    }
+    if(f==1)
+        return false;
+    else
+        return true;
+}
+int main()
+{
+    int i=0,r,n=N,front=0,rear=-1,Hungry[5],j=0;
+    int P[]={0,1,2,3,4},PC[]={0,1,2,3,4},Eat[5]={0};
+    printf("Name: Dona Mathew\nRoll no.: 19");
+    printf("\n\nInitially,");
+    //Take hungry persons randomly
+    do{
+      r=rand() % n;
+      printf("\nPhilosopher p%d is hungry",P[r]);
+      Hungry[j]=P[r];
+      j+=1;
+      //Excluding r th Philosopher
+      P[r]=P[n-1];
+      n=n-1;
+      i+=1;
+    }while(i<HUNGRY);
+    printf("\n\nAfter t seconds,");
+    for(i=0;i<HUNGRY;i++)
+    {
+      if(found(Eat,PC[(Hungry[i]+4)%N],rear) && found(Eat,PC[(Hungry[i]+1)%N],rear))
+        {
+          //chopstics are free
+          printf("\nPhilosopher p%d is eating",Hungry[i]);
+          //Eating array
+          Eat[front]=Hungry[i];
+          rear+=1;
+            
+        }
+      else
+      {
+      //both chopsticks not are free
+        printf("\nPhilosopher p%d remains hungry",Hungry[i]);  
+      }
+    }
+     
+    for(i=0;i<n;i++)
+    {
+        printf("\nPhilosopher p%d is thinking",P[i]);
+    }
+    return 0;
+}
