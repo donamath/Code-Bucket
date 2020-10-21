@@ -1,0 +1,29 @@
+//Implementation of FCFS disk scheduling
+
+#include <stdio.h>
+int main()
+{
+    int rs[20],front=0,rear=-1,head,dist=0,seek_count=0,n,i,d=0;
+    printf("\n\nInput the position of disk head: ");
+    scanf("%d",&head);
+    printf("\nInput the no. of elements in request sequence:");
+    scanf("%d",&n);
+    printf("\nInput the request sequence:");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&rs[i]);
+        rear+=1;
+    }
+    for(front=0;front<=rear;front++)
+    {
+        d=abs(rs[front]-head);
+        printf("\n%d to %d: %d",head,rs[front],d);
+        dist+=d;
+        seek_count+=1;
+        head=rs[front];
+    }
+    printf("\nTotal seek-time: %d",dist);
+    printf("\nSeek-count: %d",seek_count);
+    printf("\nAverage seek-time: %f",(float)dist/seek_count);
+    return 0;
+} 
