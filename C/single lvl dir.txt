@@ -1,0 +1,85 @@
+// Single level directory simulation
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+struct
+{
+	char dname[30],fname[50][30];
+	int filecount;
+}dir;
+
+void main()
+{
+	int i,ch;
+	char f[30];
+	dir.filecount = 0;
+	printf("\nEnter name of directory:");
+	scanf("%s", dir.dname);
+	while(1)
+	{
+		printf("\n\nDIRECTORY OPTIONS");
+		printf("\n1. Create File\n2. Delete File\n3. Search File \n4. Display Files\n5. Exit\nEnter your choice:");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1: printf("\n Enter the name of the file:");
+					scanf("%s",dir.fname[dir.filecount]);
+					dir.filecount++;
+					printf("\nFile %s is created",dir.fname[dir.filecount-1]);
+					break;
+
+			case 2: printf("\n Enter the name of the file:");
+					scanf("%s",f);
+					
+					for(i=0;i<dir.filecount;i++)
+					{
+						if(strcmp(f, dir.fname[i])==0)
+						{
+							printf("\n File %s is deleted ",f);
+							strcpy(dir.fname[i],dir.fname[dir.filecount-1]);
+							break;
+						}
+					}
+					
+					if(i==dir.filecount)
+						printf("\n File %s not found",f);
+					else
+						dir.filecount--;
+					break;
+
+			case 3: if(dir.filecount == 0)
+						printf("\nDirectory Empty");
+
+					printf("\n Enter the name of the file:");
+					scanf("%s",f);
+					
+					for(i=0;i<dir.filecount;i++)
+					{
+						if(strcmp(f, dir.fname[i])==0)
+						{
+							printf("\n File %s is found at index %d",f,i);
+							break;
+						}
+					}
+					
+					if(i==dir.filecount)
+						printf("\n File %s not found",f);
+					break;
+			
+			case 4: if(dir.filecount==0)
+						printf("\n Directory Empty");
+					else
+					{
+						printf("\n The Files are:");
+						for(i=0;i<dir.filecount;i++)
+							printf("%s\t",dir.fname[i]);
+					}
+					break;
+			case 5: printf("\nExiting.");
+					exit(0);		
+			default: printf("\nWrong choice");
+		}
+	}
+}
