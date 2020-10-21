@@ -1,0 +1,120 @@
+//Implementation of SCAN disk scheduling
+
+#include <stdio.h>
+int main()
+{
+    int rs[20],front=0,rear=-1,rs1[10],r,front1=0,rear1=-1,rs0[10],front0=0,rear0=-1,n0=0,n1=0,head,p,dist=0,n,i=0,j=0,d=0,end,dir=0,temp;
+    printf("\n\nInput the position of disk head: ");
+    scanf("%d",&head);
+    printf("\nInput the direction of disk head(0=>Left,1=>Right): ");
+    scanf("%d",&dir);
+    printf("\nInput the end cylinder number: ");
+    scanf("%d",&end);
+    printf("\nInput the no. of elements in request sequence: ");
+    scanf("%d",&n);
+    
+    printf("\nInput the request sequence: ");
+    //Inputting reguest-sequence
+    while(i+j<n)
+    {
+        scanf("%d",&r);
+        if(r>head)
+        {
+            rs1[i]=r;
+            i++;
+            rear1+=1;
+        }
+        else
+        {
+            rs0[j]=r;
+            j++;
+            rear0+=1;
+        }
+    }
+    n0=rear0+1;
+    n1=rear1+1;
+    
+    //sorting both arrays
+    for(i=0;i<rear1;i++)       
+         for(j=0;j<rear1-i;j++)  
+           if(rs1[j]>rs1[j+1])
+           {
+               temp=rs1[j];
+               rs1[j]=rs1[j+1];
+               rs1[j+1]=temp;
+           }
+    for(i=0;i<rear0;i++)       
+         for(j=0;j<rear0-i;j++)  
+           if(rs0[j]>rs0[j+1])
+           {
+               temp=rs0[j];
+               rs0[j]=rs0[j+1];
+               rs0[j+1]=temp;
+           }
+           
+    //printing both arrays
+    printf("Right Elements: ");
+    for(front1=0;front1<=rear1;front1++)
+    {
+        printf("%d ",rs1[front1]);
+    }
+    printf("\nLeft elements: ");
+    for(front0=0;front0<=rear0;front0++)
+    {
+        printf("%d ",rs0[front0]);
+    }
+    printf("\n");
+    
+    //Scan sequence according to head direction
+    if(dir==0)//towards beginning
+    {
+        for(i=n0-1,j=0;i>=0,j<n0;i--,j++)
+        {
+            rs[j]=rs0[i];
+            rear+=1;
+        }
+        rs[rear+1]=0;
+        rear+=1;
+        for(i=0,j=n0+1;i<n1,j<=n1+n0;i++,j++)
+        {
+            rs[j]=rs1[i];
+            rear+=1;
+        }
+        
+    }
+    else//towards end
+    {
+        for(i=0,j=0;i<n1,j<n1;i++,j++)
+        {
+            rs[j]=rs1[i];
+            rear+=1;
+        }
+        rs[rear+1]=end;
+        rear+=1;
+        for(i=n0-1,j=n1+1;i>=0,j<n1+n0+1;i--,j++)
+        {
+            rs[j]=rs0[i];
+            rear+=1;
+        }
+    }
+    
+    printf("\nThe SCAN Sequence is: ");
+    for(front=0;front<=rear;front++)
+    {
+        printf("%d ",rs[front]);
+    }
+    
+    //Calculating seek-time
+    for(front=0;front<=rear;front++)
+    {
+        d=abs(rs[front]-head);
+        printf("\n%d to %d: %d",head,rs[front],d);
+        dist+=d;
+        head=rs[front];
+    }
+    printf("\nTotal seek-time: %d",dist);
+    printf("\nAverage seek-time: %f",(float)dist/seek_count);
+    return 0;
+}
+
+
