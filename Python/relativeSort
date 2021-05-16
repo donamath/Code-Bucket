@@ -24,6 +24,7 @@ class Solution:
         A3=[]
         j=0
         for i in range(0,M):
+        # check for repeating elements
             for k in range(0,N):
                 if(A2[i] in A1):
                     A3.append(A2[i])
