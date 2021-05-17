@@ -1,0 +1,42 @@
+Given an array of size N-1 such that it only contains distinct integers in the range of 1 to N. Find the missing element.
+
+
+class Solution:
+    def MissingNumber(self,array,n):
+        # code here
+        # the formula of sum of first N natural numbers will lower the execution time
+        s=n*(n+1)/2
+        s1=0
+        for i in range(0,n-1):
+            s1+=array[i];
+        return (int)(s-s1)
+                
+
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
+
+
+
+
+t=int(input())
+for _ in range(0,t):
+    n=int(input())
+    a=list(map(int,input().split()))
+    s=Solution().MissingNumber(a,n)
+    print(s)
+# } Driver Code Ends
+
+
+Example 1:
+
+Input:
+N = 5
+A[] = {1,2,3,5}
+Output: 4
+Example 2:
+
+Input:
+N = 10
+A[] = {1,2,3,4,5,6,7,8,10}
+Output: 9
