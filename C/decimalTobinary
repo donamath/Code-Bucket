@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void main()
+{
+int n,c,rem;
+int s[10];
+printf("Enter the number");
+scanf("%d",&n);
+c=n;
+int i=0;
+for(int j=0;j<10;j++)
+{
+s[j]=0;
+}
+while(c>0)
+{
+
+rem=c%2;
+c=c/2;
+s[i]=rem;
+i++;
+
+}
+if(i<3)
+i=3;
+for(int j=(i-1);j>=0;j--)
+{
+printf("%d ",s[j]);
+}
+}
